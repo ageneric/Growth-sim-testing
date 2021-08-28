@@ -24,8 +24,8 @@
 			<link rel="stylesheet" type="text/css" :href="`themes/${player.option.theme}.css`" id="theme" v-if="finished"/>
 			<link rel="stylesheet" type="text/css" :href="`themes/Dark.css`" id="theme" v-else/>
 			<link rel="stylesheet" type="text/css" :href="`themes/Iosevka.css`"/>
-			<h2>Welcome to Plants of Instability</h2>
-			<a href="https://discord.gg/DVy4XjB" target="newtab">Discord</a>
+          <h2 style="margin-bottom:0">Welcome to Plants of Instability</h2>
+            <a href="https://raw.githack.com/Dystopia-user181/Growth-sim-testing/master/index.html">original game (external link)</a> <a href="https://discord.gg/DVy4XjB" target="newtab">Discord</a>
 			<br><br>
 			<p v-if="(typeof player.devSpeed == 'number') && player.devSpeed != 1">Dev Speed: {{player.devSpeed}}</p>
 			<div id="tabbtns">
@@ -56,8 +56,8 @@
 									<br><br>
 									You have {{toNot(player.honey)}} honey, providing a x{{toNot(hcvtboost, 2)}} boost to cultivators.
 									<br><br>
-									<button onclick="sellHoney()" :disabled="player.honey.lt(200)">Sell {{toNot(200)}} honey for ${{toNot(20, 2)}}</button>
-									<button onclick="sellHoney(500)" :disabled="player.honey.lt(500)">Sell {{toNot(500)}} honey for ${{toNot(50, 2)}}</button>
+									<button onclick="sellHoney()" :disabled="player.honey.lt(200)">Sell {{toNot(200)}} honey for ${{toNot(25, 2)}}</button>
+									<button onclick="sellHoney(400)" :disabled="player.honey.lt(500)">Sell {{toNot(400)}} honey for ${{toNot(50, 2)}}</button>
 									<br><br>
 									<div v-if="player.tutorial.unlockedQueen">
 										<hr><br>
@@ -81,7 +81,7 @@
 								<button onclick="buyCvt('cvt')" :disabled="player.money.lt(getCvtScal(player.cvt))">Buy {{toNot(1)}} Cultivator for ${{toNot(getCvtScal(player.cvt), 2)}}.</button>
 								<button onclick="upCvt('cvt')" :disabled="player.money.lt(getCvtUpScal(player.cvt))">Upgrade Cultivator for ${{toNot(getCvtUpScal(player.cvt))}}.</button>
 							</div>
-							<h3 v-else-if="player.tutorial.unlockedSell">Unlocked at $40.00</h3>
+							<h3 v-else-if="player.tutorial.unlockedSell">Unlocked at $30.00</h3>
 							<br>
 							<div v-if="player.tutorial.unlockedPot&&player.tutorial.unlockedHoneybee">
 								You have {{toNot(player.hives.total.floor())}}  ({{comma(player.hives.bought)}} bought) level {{toNot(player.hives.level)}} hives, producing {{toNot(comps)}} honeycombs per second.
@@ -149,16 +149,8 @@
 								<div id="mach1" v-if="player.machines.gt(0)">
 									You have {{toNot(player.plants.picked)}} plants and {{toNot(player.honey)}} honey.
 									<br>
-									<button onclick="makePlantium()" :disabled="player.plants.picked.lt(player.plantiumplantamt) || player.honey.lt(player.plantiumplantamt.div(10))">Throw {{toNot(player.plantiumplantamt)}} plants and {{toNot(player.plantiumplantamt.div(10))}} honey into the machine {{player.tutorial.madeFirstPlantium?"to gain " + toNot(player.onplantiumgain.mul(Decimal.pow(1.5, player.plantiumplantamt.add(1).log10()-15))) + " plantium.":"and see what happens!"}}</button>
+									<button onclick="makePlantium()" :disabled="player.plants.picked.lt(player.plantiumplantamt) || player.honey.lt(player.plantiumplantamt.div(10))">Throw {{toNot(player.plantiumplantamt)}} plants and {{toNot(player.plantiumplantamt.div(10))}} honey into the machine {{player.tutorial.madeFirstPlantium?"to gain " + toNot(player.onplantiumgain.mul(Decimal.pow(1.5, player.plantiumplantamt.add(1).log10()-14.290488))) + " plantium.":"and see what happens!"}}</button>
 								</div>
-								<br>
-								<div id="machinelore" v-if="player.tutorial.madeFirstPlantium&&player.display.lore">The machine explodes violently. It destroys everything you had previously. Amazingly, you, and the machine, are left unfazed.
-								<br><br>
-								The machine outputs a glowing orb. You can feel the heat of it even from a distance. It seems to be an extremely powerful (and potentially destructive) substance. You decide to call it plantium because, uh, you couldn't think of a better name.
-								<br><br>
-								Hint: You should really be checking out the "Plantium" tab.
-								</div>
-								<button onclick="player.display.lore = !player.display.lore;" v-if="player.tutorial.madeFirstPlantium">Collapse/Expand lore</button>
 								<div v-if="pus[5].bought">
 									<br><br>
 									You have {{toNot(player.machines)}} machines.
@@ -169,6 +161,14 @@
 									<br><br>
 									Plants to dump on plantium: <input v-model="player.tmpplantiumplantamt" v-on:change="var err = false; try {new Decimal(player.tmpplantiumplantamt)} catch {err = true} if (err) player.tmpplantiumplantamt = '1e15'; else if (new Decimal(player.tmpplantiumplantamt).lt(1e15)) player.tmpplantiumplantamt = '1e15'; player.plantiumplantamt = new Decimal(player.tmpplantiumplantamt)"/>
 								</div>
+								<br>
+								<div id="machinelore" v-if="player.tutorial.madeFirstPlantium&&player.display.lore">The machine explodes violently. It destroys everything you had previously. Amazingly, you, and the machine, are left unfazed.
+								<br><br>
+								The machine outputs a glowing orb. You can feel the heat of it even from a distance. It seems to be an extremely powerful (and potentially destructive) substance. You decide to call it plantium because, uh, you couldn't think of a better name.
+								<br><br>
+								Hint: You should really be checking out the "Plantium" tab.
+								</div>
+								<button onclick="player.display.lore = !player.display.lore;" v-if="player.tutorial.madeFirstPlantium">Collapse/Expand lore</button>
 							</div>
 						</div>
 					</div>
@@ -224,14 +224,19 @@
 					<div v-else-if="player.navigation.tab == 'Options'" class="tab" align="center">
 						<optionsbtn v-for="btn in options.row1" :text="btn.text" :key="btn.id" :onclick="btn.onclick"></optionsbtn><br>
 						<optionsbtn v-for="btn in options.row2" :text="btn.text" :key="btn.id" :onclick="btn.onclick"></optionsbtn><br>
-						<tbtn v-for="btn in options.row3" :text="btn.text" :el="btn.el" :it="btn.it" :key="btn.id"></tbtn><br>
+						<tbtn v-for="btn in options.row3" :text="btn.text" :el="btn.el" :it="btn.it" :key="btn.id"></tbtn>
+                        <br><br>
+                        <div>Branched 2021-08-27. Changes: - Rebalanced [<span style="color: var(--bg-2);">Plantium</span>] upgrades - Added the 4th cell - Tweaked values</div>
 					</div>
 					<a href="https://bit.ly/2Bru1VR" title="Is this loss?" target="newtab"><s style="position: fixed; top: 0px; right: 0px; font-family: sans-serif; font-size: 7px">:.|:;</s></a>
 					<textarea id="savetext" style="display: none;">{{btoa(JSON.stringify(player))}}</textarea>
 				</div>
 				<div v-else><h1 style="font-size: 100px;">Calculating...</h1></div>
 			</div>
-			<h1 v-else>You have reached the end of content! Wait for the dev to finish the next update.<br><br><button class="optionsbtn" onclick="reset()">Reset save</button></h1>
+			<h1 v-else>You have reached the end of content! Thank you for playing this mod. A link to the original game and its Discord is above.<br><br>
+              <button class="optionsbtn" onclick="reset()">Reset save</button>
+              <button class="optionsbtn" onclick='reset_qus()'>UNDO THE PLAN.</button>
+            </h1>
 		</div>
 	</body>
 </html>

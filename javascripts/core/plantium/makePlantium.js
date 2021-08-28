@@ -26,49 +26,49 @@ function pus() {
 		{
 			title: "Effective Power",
 			desc: "Double the plant power effect exponent (1.1 -> 2.2).",
-			cost: new Decimal(3),
+			cost: new Decimal(2),
 			id: 0,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-1] == "1"
 		},
 		{
 			title: "Volatility",
 			desc: "Plantium no longer resets anything, only subtracts from plant and honey amount.",
-			cost: new Decimal(5),
+			cost: new Decimal(10),
 			id: 1,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-2] == "1"
 		},
 		{
 			title: "Quick Unload",
 			desc: "Machine speed is 0.1 seconds.",
-			cost: new Decimal(6),
+			cost: new Decimal(60),
 			id: 2,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-3] == "1"
 		},
 		{
 			title: "Solar factories",
 			desc: "Factories do not consume plant power.",
-			cost: new Decimal(100),
+			cost: new Decimal(1e3),
 			id: 3,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-4] == "1"
 		},
 		{
-			title: "Automate it 420",
-			desc: "Unlock better automation.",
-			cost: new Decimal(420),
+			title: "Automate it 42",
+			desc: "Unlock better automation, including auto-plantium.",
+			cost: new Decimal(42),
 			id: 4,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-5] == "1"
 		},
 		{
 			title: "The Machine Room",
 			desc: "You can buy more machines in the machines tab. This results in more plantium per tick. Also adds 4 more slots to a machine.",
-			cost: new Decimal(2e3),
+			cost: new Decimal(2e4),
 			id: 5,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-6] == "1"
 		},
 		{
 			title: "The Machine Room II",
 			desc: "You can input more plants into the machine, which returns more plantium. This value is adjustable in the machines tab.",
-			cost: new Decimal(5e4),
+			cost: new Decimal(2),
 			id: 6,
 			bought: player.plantiumupgrades.toString(2)[player.plantiumupgrades.toString(2).length-7] == "1"
 		},

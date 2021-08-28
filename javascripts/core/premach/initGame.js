@@ -92,7 +92,7 @@ const initPlayer = {
 	navigation: {
 		tab: "Plants"
 	},
-	version: "1.0.0.0-balancing",
+	version: "fork-1.0.0.0-balancing",
 	devSpeed: 1
 };
 var lastTick = new Date().getTime();
@@ -123,7 +123,7 @@ function mainGameLoop(ticks=0.05) {
 
 	if (player.tutorial.unlockedHoneybee) {
 		var softcap = (vm.beecapped ? player.bees.pow(0.7) : 1)
-		player.bees = player.bees.add(player.plants.field.pow(0.55).mul(player.honeycombs.pow(0.3).add(1)).mul(vm.plantpowbuff).mul(ticks).mul(Math.pow(player.queens.beeproduction, 6)).div(softcap).mul(vm.pus[5].bought?player.queens.amt:1)).min(player.plants.field.div(50).mul(player.honeycombs.pow(Decimal.div(1, player.honeycombs.add(100).log(100))).add(1)));
+		player.bees = player.bees.add(player.plants.field.pow(0.55).mul(player.honeycombs.pow(0.3).add(0.5)).mul(vm.plantpowbuff).mul(ticks).mul(Math.pow(player.queens.beeproduction, 6)).div(softcap).mul(vm.pus[5].bought?player.queens.amt:1)).min(player.plants.field.div(50).mul(player.honeycombs.pow(Decimal.div(1, player.honeycombs.add(100).log(100))).add(1)));
 	}
 
 	var prevPlants = player.plants.picked;
@@ -170,9 +170,9 @@ function mainGameLoop(ticks=0.05) {
 			}
 		}
 		if (player.plantiumprocess > 100) {
+			player.plantium = player.plantium.add(player.onplantiumgain.mul(Decimal.pow(1.5, player.plantiumplantamt.add(1).log10()-14.290488)).floor()); // arbitrary constant such that 1e16 -> 2 plantium
 			if (!vm.pus[1].bought) prestige(["plantium", "machines", "generators", "plantiumupgrades", "onplantiumgain", 
 				"batteries", "batteryUnlocks", "batteryArray", "selectedBatteryCell"]);
-			player.plantium = player.plantium.add(player.onplantiumgain.mul(Decimal.pow(1.5, player.plantiumplantamt.add(1).log10()-15)));
 			player.plantiumprocess = 2;
 			player.tutorial.madeFirstPlantium = true;
 		}
@@ -180,6 +180,7 @@ function mainGameLoop(ticks=0.05) {
 	var cellUnlocks = 0;
 	cellUnlocks += player.batteries.gte(6);
 	cellUnlocks += player.bees.gte(2.222e222)&&vm.cellUnlocks.silver.unlocked;
+	cellUnlocks += player.bees.gte(1.797e240)&&vm.cellUnlocks.silver.unlocked;
 	player.batteryUnlocks = Math.max(player.batteryUnlocks, cellUnlocks);
 }
 function simulateTime(ticks) {

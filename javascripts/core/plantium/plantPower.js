@@ -29,10 +29,10 @@ function getCellScaling(type) {
 		return Decimal.pow(12, player.batteryBox[type].pow(1.6).add(player.batteryBox[type].sub(10).max(0).pow(2.6))).mul(1e11);
 		break;
 		case "connected":
-		return Decimal.pow(15, player.batteryBox[type].pow(1.7).add(player.batteryBox[type].sub(10).max(0).pow(2.7))).mul(1e35);
+		return Decimal.pow(15, player.batteryBox[type].pow(1.6).add(player.batteryBox[type].sub(10).max(0).pow(2.8))).mul(1e35);
 		break;
 		case "chained":
-		return new Decimal(1e100);
+		return Decimal.pow(18, player.batteryBox[type].pow(2.8)).mul(1e41);
 		break;
 	}
 }
@@ -55,5 +55,5 @@ function expand() {
 	Vue.set(player, "batteryArray", player.batteryArray);
 }
 function getExpansionCost() {
-	return Decimal.pow(1e100, D(player.expansions).pow(4)).mul(1e40)
+	return Decimal.pow(1e50, D(player.expansions).pow(2)).mul(1e40)
 }

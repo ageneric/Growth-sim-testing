@@ -23,13 +23,17 @@ function reset() {
 		}, 400);
 	}
 }
+function reset_qus() {
+    reseter(player["queens"], initPlayer["queens"]);
+	load(player);
+}
 setInterval(function() {
 	if (player.option.autosave) save();
 }, 10000);
 function load(save, isOnload=false) {
 	if (typeof save !== "object") return;
 	if (save === null) return;
-	if (save.version !== "1.0.0.0-balancing") {
+	if (save.version !== "fork-1.0.0.0-balancing") {
 		alert("Save is from an older version and thus is incompatible with the newer version.");
 		if (isOnload) {
 			localStorage.setItem("growthsimsave", JSON.stringify(initPlayer));

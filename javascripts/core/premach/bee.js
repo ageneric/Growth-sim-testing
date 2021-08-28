@@ -2,8 +2,8 @@ function sellHoney(amt=200) {
 	amt = new Decimal(amt);
 	if (player.honey.lt(amt)) return;
 	player.honey = player.honey.sub(amt);
-	player.money = player.money.add(amt.mul(0.1));
-	if (player.money.gte(40)) player.tutorial.unlockedPot = true;
+	player.money = player.money.add(amt.mul(0.125));
+	if (player.money.gte(30)) player.tutorial.unlockedPot = true;
 	if (player.money.gte(500)) player.tutorial.unlockedMarketing = true;
 	if (player.money.gte(1e14) && !player.tutorial.unlockedMachine) {
 		player.navigation.tab = "Machine";
@@ -80,7 +80,7 @@ function qus() {
 		},
 		{
 			desc: "BEGIN THE PLAN.",
-			cost: new Decimal(100),
+			cost: new Decimal(101),
 			id: 7,
 			bought: player.queens.upgrades.toString(2)[player.queens.upgrades.toString(2).length-8] == "1"
 		},

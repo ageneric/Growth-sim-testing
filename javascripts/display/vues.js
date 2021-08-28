@@ -57,7 +57,7 @@ var vdata = {
 				copper: "Add 0.2 to battery efficiency.",
 				silver: "Add 0.3 to battery efficiency.",
 				connected: "Add 0.04 to battery efficiency for every copper cell.",
-				chained: "Add 0.1 to battery efficiency (this is then multiplied by the number of neighbours.)"
+				chained: "Add the total efficiency of every adjacent copper or silver cell to battery efficiency."
 			}
 		},
 		cellUnlocks: function() {
@@ -74,8 +74,8 @@ var vdata = {
 					desc: `Reach ${toNot(2.222e222)} bees to unlock.`
 				},
 				chained: {
-					unlocked: player.cellUnlocks > 2,
-					desc: "Wait for the next update to unlock."
+					unlocked: player.batteryUnlocks > 2,
+					desc: `Reach ${toNot(1.797e240)} bees to unlock.`
 				}
 			}
 		},
@@ -94,10 +94,14 @@ var vdata = {
 						break;
 						case "chained":
 						var a = 0;
-						a += (player.batteryArray[i-1]!=undefined&&player.batteryArray[i-1][e]=="chained");
-						a += (player.batteryArray[i][e-1]=="chained");
-						a += (player.batteryArray[i+1]!=undefined&&player.batteryArray[i+1][e]=="chained");
-						a += (player.batteryArray[i][e+1]=="chained");
+						a += 3*(player.batteryArray[i-1]!=undefined&&player.batteryArray[i-1][e]=="silver");
+						a += 3*(player.batteryArray[i][e-1]=="silver");
+						a += 3*(player.batteryArray[i+1]!=undefined&&player.batteryArray[i+1][e]=="silver");
+						a += 3*(player.batteryArray[i][e+1]=="silver");
+						a += 2*(player.batteryArray[i-1]!=undefined&&player.batteryArray[i-1][e]=="copper");
+						a += 2*(player.batteryArray[i][e-1]=="copper");
+						a += 2*(player.batteryArray[i+1]!=undefined&&player.batteryArray[i+1][e]=="copper");
+						a += 2*(player.batteryArray[i][e+1]=="copper");
 						return D(a).mul(0.1);
 						default:
 						return D(0);
